@@ -1,0 +1,9 @@
+a.no-color
+{
+  color:black;
+}
+
+a>p
+{
+ margin:0;
+}

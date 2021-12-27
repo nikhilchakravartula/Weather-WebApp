@@ -1,0 +1,20 @@
+
+input.ng-touched.ng-invalid
+{
+ border: 1px solid red;
+}
+
+.bg-form
+{
+  background-color: rgba(242,242,241,255);
+}
+
+label
+{
+  margin:0;
+}
+
+.required:after {
+  content: "*";
+  color: red;
+}

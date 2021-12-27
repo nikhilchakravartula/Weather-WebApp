@@ -1,0 +1,58 @@
+<div class="table-responsive" >
+  <!-- <div class="row pl-0 m-0"> -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Temp. High(&deg;F)</th>
+            <th scope="col">Temp. Low(&deg;F)</th>
+            <th scope="col">Wind Speed(mph)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dailyWeatherValues of weatherData;let in=index">
+            <th scope="row">{{in+1}}</th>
+            <td ><a href="javascript:void(0)" (click)="onClickDetailsPane($event,in)"><p>{{dateToStr(dailyWeatherValues.startTime)}}</p></a></td>
+            <td class="">
+
+              <!-- <div class="row">
+                <picture>
+                    <img [src]="getStatusImage(dailyWeatherValues.weatherCode)"  class="img-fluid" alt="img">
+                </picture>
+                </div> -->
+              <!-- <p class="align-middle d-inline-block">{{getStatusTitle(dailyWeatherValues.weatherCode)}}</p>
+              <img class="img-fluid d-inline-block align-middle" [src]="getStatusImage(dailyWeatherValues.weatherCode)"> -->
+
+            <!--  <div class="media">
+                <img class="align-self-center" [src]="getStatusImage(dailyWeatherValues.weatherCode)" alt="Generic placeholder image">
+                <div class="media-body">
+                  <h5>{{getStatusTitle(dailyWeatherValues.weatherCode)}}</h5>
+                </div>
+
+              </div> -->
+              <div class="table-responsive table-borderless">
+              <table class="">
+                <tbody>
+                  <td class="align-middle"
+                  [style.background-image]="'url('+getStatusImage(dailyWeatherValues.weatherCode)+')'"
+                  [style.background-repeat]="'no-repeat'"
+                  ></td>
+                  <td class="align-middle pl-2 pr-2 pt-0 pb-0 ">{{getStatusTitle(dailyWeatherValues.weatherCode)}}</td>
+                </tbody>
+
+              </table>
+            </div>
+
+            </td>
+            <td>{{dailyWeatherValues.temperatureMax}}</td>
+            <td>{{dailyWeatherValues.temperatureMin}}</td>
+            <td>{{dailyWeatherValues.windSpeed}}</td>
+          </tr>
+          <tr>
+          </tr>
+        </tbody>
+      </table>
+     <!-- </div> -->
+  </div>

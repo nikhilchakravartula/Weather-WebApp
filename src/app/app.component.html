@@ -1,0 +1,71 @@
+
+
+<div class="container p-2 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 mt-2 mb-2" >
+      <app-search-form-component
+        class=""
+        (submitForm)="onSubmit($event)"
+        (error)="onError()"
+        (clear)="onClear()"
+      >
+      </app-search-form-component>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 mt-2">
+      <ul ngbNav #nav="ngbNav" class="nav nav-pills justify-content-center" [(activeId)]="activeId">
+        <li [ngbNavItem]="0" >
+          <a ngbNavLink>Results</a>
+          <ng-template ngbNavContent>
+            <div class="mt-5" *ngIf="showDetails||showResults" >
+              <div  *ngIf="showResults"
+              [@resultsAnimation]="animationState"
+              (@resultsAnimation.done)="onResultsAnimationDone($event)"
+
+
+
+              >
+                <app-results [data]="weatherData"
+                [detailsPaneRowId]="detailsPaneRowId"
+                (detailsClick)="onDetailsClick()"
+                ></app-results>
+              </div>
+
+              <div class="" *ngIf="showDetails"
+              [@detailsAnimation]="animationState"
+              (@detailsAnimation.done)="onDetailsAnimationDone($event)"
+
+              >
+                <app-details-pane [data]="weatherData.dailyValues[detailsPaneRowId]"
+                [address]="weatherData.address"
+                (goBack)="onComingBack()">
+                </app-details-pane>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <app-error *ngIf="state==='ERROR'"></app-error>
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>Favourites</a>
+          <ng-template ngbNavContent><app-favourites  (onFavoriteClick)="onFavoriteClick($event)"></app-favourites></ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+
+    </div>
+
+
+
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8 mt-5">
+      <app-progress-bar *ngIf="state==='PROGRESS_BAR'"></app-progress-bar>
+    </div>
+
+
+
+  </div>
+
+
+</div>
+

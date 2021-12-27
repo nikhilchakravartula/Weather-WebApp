@@ -1,0 +1,174 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <form
+      class="col bg-form  pt-2 "
+      [formGroup] = "searchForm"
+      (ngSubmit)="onSubmit($event)"
+    >
+      <div class="form-group row justify-content-center">
+        <div class="col"><h1 class="text-center">Weather Search⛅</h1></div>
+      </div>
+
+      <div
+        class="form-group form-row align-items-center justify-content-center"
+      >
+        <label for="street" class="col-xs-12 col-sm-12 col-md-12 col-lg-2 required"
+          >Street</label
+        >
+
+        <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
+          <div class="row">
+            <div class="col">
+              <input
+              type="text"
+              class="form-control"
+              id="street"
+              name="street"
+              formControlName="street"
+            />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <small  *ngIf=" (searchForm.controls['street'].touched ||
+              searchForm.controls['street'].dirty) &&
+              searchForm.controls['street'].invalid" class="text-danger ">
+                Please enter a valid street
+              </small>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div
+        class="form-group form-row align-items-center justify-content-center"
+      >
+        <label for="city" class="col-xs-12 col-sm-12 col-md-12 col-lg-2 required"
+          >City</label
+        >
+
+        <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
+          <div class="row">
+            <div class="col">
+              <input
+              type="text"
+              class=" form-control"
+              id="city"
+              name="city"
+              formControlName="city"
+              [matAutocomplete]="streetAutoComplete"
+              />
+              <mat-autocomplete #streetAutoComplete="matAutocomplete" (optionSelected)="onCitySelected($event)">
+                <mat-option *ngFor="let cityState of cityStates;let in=index;" [value]="cityState.city" >
+                {{cityState.city}}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <small  *ngIf=" (searchForm.controls['city'].touched ||
+              searchForm.controls['city'].dirty) &&
+              searchForm.controls['city'].invalid" class="text-danger ">
+                Please enter a valid city
+              </small>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div
+        class="form-group form-row align-items-center justify-content-center"
+      >
+        <label for="state" class="col-xs-12 col-sm-12 col-md-12 col-lg-2 required"
+          >State</label
+        >
+        <mat-autocomplete #autocomplete="matAutocomplete" >
+          <mat-option *ngFor="let state of states" [value]="state.full">
+            {{ state.full }}
+          </mat-option>
+        </mat-autocomplete>
+
+        <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+          <div class="row">
+            <div class="col">
+              <input
+              class="form-control"
+              type="text"
+              placeholder="Select your state"
+              aria-label="String"
+              matInput
+              [matAutocomplete]="autocomplete"
+              formControlName="state"
+            />
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="col-md-4"></div>
+      </div>
+      <div class="form-row">
+        <hr class="col-xs-12 col-sm-12 col-md-12 col-lg-10" />
+      </div>
+
+      <div class="form-group form-row justify-content-center">
+        <label for="autodetect" class="col-xs-12 col-sm-12 col-md-12 col-lg-2 required"
+          >Autodetect Location</label
+        >
+        <div class="form-check col-xs-12 col-sm-12 col-md-12 col-lg-7">
+          <label class="checkbox-inline">
+            <input type="checkbox" value="true" formControlName="autodetect" (change)="onAutoDetectChange()"
+            name="autodetect"
+            />
+            Current Location
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group form-row justify-content-center">
+        <div class="col-lg-5">
+          <button #submitBtn type="submit" class="btn btn-primary mr-2" [disabled]="searchForm.invalid">
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-search"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+              ></path></svg>Search
+          </button>
+
+          <button type="reset" (click)="onClear()" class="btn btn-light btn-outline-secondary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-list-nested"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"
+              /></svg>Clear
+          </button>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+    </form>
+  </div>
+
+</div>
